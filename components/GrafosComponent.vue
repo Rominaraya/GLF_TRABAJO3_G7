@@ -1,5 +1,5 @@
 <template>
-  <GrafosComponent/>
+
 </template>
 
 <script>
