@@ -5,14 +5,13 @@
             <div class="grafo1 col-md-3 mx-4 card cardaux">
                 <div class="container-fluid mr-4">
                     <div class="row justify-content-center ml-1">
-                        
+
                             <div class="col-md-6 my-4"><button class="btn btn-success info textocolor">Crear AFD</button></div>
                             <div class="col-md-6 my-4"><button class="btn btn-success info textocolor">Crear AP's</button></div>
-                        
+
                     </div>
 
                 </div>
-
                 <div class="container-fluid py-4 mr-4">
                     <h3 class="mt-2">Autómata Finito Determinista (AFD)</h3>
                     <hr>
@@ -68,10 +67,10 @@
 
                             <button class="btn btn-success btn-sm" type="submit">Agregar</button>
                         </form>
-                    </div> 
-                </div>
+                    </div>
             </div>
         </div>
+    </div>
 </div>
 </template>
 
