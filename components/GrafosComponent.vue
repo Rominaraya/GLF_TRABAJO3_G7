@@ -260,8 +260,82 @@
                     </table>
                     <button class="btn btn-success btn-sm mb-3 text-right" type="submit">Guardar</button>
                 </div>
+                <div class="grafo1 col-md-8 card cardaux">
+                <h3 class="text-center fredoka my-2">Representación</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="text-center fredoka my-3" >Autómata Finito Determinista</h4>
+                        <div id="AFD" class="mb-3" style="border:1px solid lightgray;"></div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4 class="text-center fredoka my-3">Autómata de Pila 1</h4>
+                        <div  id="AP1" class="mb-3" style="border:1px solid lightgray;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-center fredoka my-3">Autómata de Pila 2</h4>
+                        <div id="AP2" class="mb-3" style="border:1px solid lightgray;"></div>
+                    </div>
+                </div>
             </div>
+
+            <!--REPRESENTACION AUTOMATAS-->
+        </div>
+
+        <h1 class="text-center fredoka textocolor my-4">Operaciones</h1>
+        <div class="row justify-content-center">
+            <div class="card cardaux4 col-md-10 rounded-top">
+                <div class="btn-group justify-content-center" role="group">
+                    <a href="#"><button class="btn btn-secondary">Expresión Regular</button></a>
+                    <a href="#"><button class="btn btn-secondary">Concatenación de AP's</button></a>
+                    <a href="#"><button class="btn btn-secondary">Unión de AP's</button></a>
+                </div>
             </div>
+
+            <!--CASO 1: EXPRESIÓN REGULAR-->
+            <div class="cardaux2 col-md-10">
+                <h3 class="text-center fredoka textocolor my-3">Expresión Regular</h3>
+            </div>
+            <div class="card cardaux3 col-md-10 rounded-bottom mb-3">
+                <div class="container my-3">
+                    <div class="text-center">
+                        <a href="#ER"><button class="btn btn-success">Mostrar expresion regular</button></a>
+                    </div>
+                    <div class="my-3">
+                        <h3 class="my-3">La expresión regular del AFD es: <strong> {{expresionRegularAFD}} </strong></h3>
+                        <div id="ER" style="border:1px solid lightgray;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--CASO 2: CONCATENACIÓN-->
+            <div class="cardaux2 col-md-10">
+                <h3 class="text-center fredoka textocolor my-3">Concatenación de AP'S</h3>
+            </div>
+            <div class="card cardaux3 col-md-10 rounded-bottom mb-3">
+                <div class="container my-3">
+                    <div class="text-center my-3">
+                        <button class="btn btn-success">Mostrar concatenación</button>
+                    </div>
+                    <div id="APCONCATENADO" style="border:1px solid lightgray;"></div>
+                    
+                </div>
+            </div>
+
+            <!--CASO 3: UNION-->
+            <div class="cardaux2 col-md-10">
+                <h3 class="text-center fredoka textocolor my-3">Unión de AP's</h3>
+            </div>
+            <div class="card cardaux3 col-md-10 rounded-bottom mb-3">
+                <div class="container my-3">
+                    <div class="text-center my-3">
+                        <button class="btn btn-success">Mostrar Unión</button>
+                    </div>
+                    <div id="APUNIDOS" style="border:1px solid lightgray;"></div>
+                </div>
+            </div>
+        </div>
+     </div>
 </template>
 
 <script>
