@@ -188,7 +188,79 @@
                         </form>
                     </div> 
                 </div>
-                
+                <div class="grafo1 col-md-5 mx-3 card cardaux my-3">
+                <hr>
+                <div>
+
+                    <h3 class="text-center fredoka my-3">Tabla de estados autómata Finito Determinista</h3>
+                    <table class="table table-striped table-dark" aria-describedby="estados1">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                <td>{{index}}</td>
+                                <td>{{item.label}}</td>
+                                <td>
+                                    <div>
+                                        <input type="checkbox" name="state" id="state">
+                                        <label for="state">Estado Final</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 class="text-center fredoka my-3">Tabla de estados autómata de Pila 1</h3>
+                    <table class="table table-striped table-dark" aria-describedby="estados1">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                <td>{{index}}</td>
+                                <td>{{item.label}}</td>
+                                <td>
+                                    <div>
+                                        <input type="checkbox" name="state" id="state">
+                                        <label for="state">Estado Final</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 class="text-center fredoka my-3">Tabla de estados autómata de Pila 2</h3>
+                    <table class="table table-striped table-dark" aria-describedby="estados1">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                <td>{{index}}</td>
+                                <td>{{item.label}}</td>
+                                <td>
+                                    <div>
+                                        <input type="checkbox" name="state" id="state">
+                                        <label for="state">Estado Final</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-success btn-sm mb-3 text-right" type="submit">Guardar</button>
+                </div>
+            </div>
             </div>
 </template>
 
