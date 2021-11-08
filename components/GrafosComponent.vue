@@ -337,5 +337,120 @@
 </template>
 
 <script>
-export default {}
+import vis from 'vis'
+
+export default {
+    data(){
+        return{
+            estadosAutomataAFD:[{id: 'inicio', label: 'inicio', color:'#75616b47', final: false}],
+            estadoAutomataAFD:{id: '', label: '', color: '#C25C0B', final: false},
+            transicionesAutomataAFD:[],
+            transicionAutomataAFD:{from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}},
+            estadosAP1:[{id: 'inicio', label: 'inicio', color:'#75616b47', final: false}],
+            estadoAP1:{id: '', label: '', color: '#C25C0B', final: false},
+            transicionesAP1:[],
+            transicionAP1:{from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}},
+            
+            pilaAP:{agrega:'',elimina:''},
+            pila1:[],
+            pila2:[],
+            estadosAP2:[{id: 'inicio', label: 'inicio', color:'#75616b47', final: false}],
+            estadoAP2:{id: '', label: '', color: '#C25C0B', final: false},
+            transicionesAP2:[],
+            transicionAP2:{from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}},
+            
+            expresionRegularAFD:'',
+            
+            estadosAutomataUnionAP:[],
+            estadoAutomataUnionAP:{id: '', label: '', color: '#C25C0B', final: false},
+            transicionesAutomataUnionAP:[],
+            transicionAutomataUnionAP:{from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}},
+            estadosAutomataConcatenacionAP:[],
+            estadoAutomataConcatenacionAP:{id: '', label: '', color: '#C25C0B', final: false},
+            transicionesAutomataConcatenacionAP:[],
+            transicionAutomataConcatenacionAP:{from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}},
+            alfabetoAFD:[],
+            alfabetoAP1:[],
+            alfabetoAP2:[],
+            automataER:[],
+            transicionesER:[],
+            selected:false,
+            selected2:false,
+            automataCreate:false,
+            option:'',
+            opcion:0,
+            representacion1:false,
+            analizarPalabra:false,
+            volverInicio:false,
+            createTrans:false,
+            creaEstado:false,
+            showAps:false,
+            apSeleccionado:0,
+        }
+    },
+    created(){
+    },
+    methods:{
+        selectAFD(){
+            this.automataCreate=true;
+            this.option=1;
+        },
+        selectAP(){
+            this.automataCreate=true;
+            this.selected=true;
+            this.showAps=true;
+            this.option=2;
+        },
+        createEstado(){
+            this.creaEstado=true;
+            this.selected=true;    
+            this.selected2=true;  
+            this.createTrans=false;
+            this.drawAutomata();
+        },
+        createTransicion(){
+            this.createTrans=true;
+            this.selected=true;
+            this.selected2=true;
+            this.creaEstado=false;
+            this.drawAutomata();
+        },
+        representacion(){
+            this.representacion1=true;
+        },
+        representacionBack(){
+            this.representacion1=false;
+            this.drawAutomata();
+        },
+        back(){
+            this.selected=false;
+            this.createTrans=false;
+            this.creaEstado=false;
+            this.analizarPalabra=false;
+            this.selected2=false;
+        },
+        backInicio(){
+            this.automataCreate=false;
+            this.creaEstado=false;
+            this.option=0;
+            this.opcion=0;
+            this.selected=false;
+        },
+        backToAp(){
+            this.selected=true;
+            this.showAps=true;
+        },
+        createAP1(){
+            this.selected=false;
+            this.showAps=false;
+            this.apSeleccionado=1;
+        },
+        createAP2(){
+            this.selected=false;
+            this.showAps=false;
+            this.apSeleccionado=2;
+        },
+        //agregar desde aquí
+    }
+}
 </script>
