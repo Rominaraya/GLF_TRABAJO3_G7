@@ -544,8 +544,158 @@ export default {
                 return false;
             }
         },
-        // Crear transiciones
-        
+        crearTransicion(){
+            if(this.option===1)
+            {
+                if(this.transicionAutomataAFD.from ==='' || this.transicionAutomataAFD.to ==='')
+                {
+                    this.$swal("Estados no ingresados. Rellene todos los campos antes de continuar",{
+                        className: "alertas",
+                        button: "Aceptar",
+                        title: "Aviso",
+                        icon: "warning"
+                    });
+                    return;
+                }
+                for( var i =0; i<this.transicionesAutomataAFD.length; i++)
+                {
+                    if(this.transicionesAutomataAFD[i].from===this.transicionAutomataAFD.from && this.transicionesAutomataAFD[i].label === this.transicionAutomataAFD.label)
+                    {
+                        this.$swal("La transición ya existe. Ingrese otra",{
+                            className: "alertas",
+                            button: "Aceptar",
+                            title: "Aviso",
+                            icon: "warning"
+                        });
+                        return;
+                    }
+                } 
+                if(!this.existeEstadoTransicion(this.estadosAutomataAFD, this.transicionAutomataAFD))
+                {
+                    this.$swal("Los estados ingresados no existen. Ingrese otros estados para generar la transición",{
+                        className: "alertas",
+                        button: "Aceptar",
+                        title: "Aviso",
+                        icon: "warning",
+                    });
+                    return;
+                } 
+                if(this.existeTransicionAFD(this.transicionesAutomataAFD,this.transicionAutomataAFD))
+                {
+                    this.$swal("La transición ya existe. Ingrese otra",{
+                        className: "alertas",
+                        button: "Aceptar",
+                        title: "Aviso",
+                        icon: "warning",
+                    });
+                    return;
+                }
+                for(var t=0; t<this.transicionesAutomataAFD.length;t++)
+                {
+                    if(this.transicionesAutomataAFD[t].from===this.transicionAutomataAFD.from && this.transicionesAutomataAFD[t].label!= this.transicionAutomataAFD.label && this.transicionesAutomataAFD[t].to ===this.transicionAutomataAFD.to){
+                        var aux=[this.transicionesAutomataAFD[t].label, this.transicionAutomataAFD.label];
+                        console.log("aux: ",aux);
+                        this.transicionesAutomataAFD[t].label= aux[0]+ '+'+ aux[1];
+                        
+                        this.drawAutomata();
+                        return;
+                    }
+                }
+                this.addCaracterToAlfabeto();
+                
+                this.transicionesAutomataAFD.push(this.transicionAutomataAFD);
+                this.transicionAutomataAFD={from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}}; 
+            }
+            else{
+                if(this.apSeleccionado===1)
+                {
+                    if(this.transicionAP1.from ==='' || this.transicionAP1.to ==='')
+                    {
+                        this.$swal("Estados no ingresados. Rellene todos los campos antes de continuar",{
+                            className: "alertas",
+                            button: "Aceptar",
+                            title: "Aviso",
+                            icon: "warning"
+                        });
+                        return;
+                    }
+                    for( var j =0; j<this.transicionesAP1.length; j++)
+                    {
+                        if(this.transicionesAP1[j].from===this.transicionAP1.from && this.transicionesAP1[j].label === this.transicionAP1.label)
+                        {
+                            this.$swal("La transición ya existe. Ingrese otra",{
+                                className: "alertas",
+                                button: "Aceptar",
+                                title: "Aviso",
+                                icon: "warning"
+                            });
+                            return;
+                        }
+                    }
+                    if(!this.existeEstadoTransicion(this.estadosAP1, this.transicionAP1))
+                    {
+                        this.$swal("Los estados ingresados no existen. Ingrese otros estados para generar la transición",{
+                            className: "alertas",
+                            button: "Aceptar",
+                            title: "Aviso",
+                            icon: "warning",
+                        });
+                        return;
+                    }
+                    else{
+                        
+                        this.addCaracterToAlfabeto();
+                        this.transicionesAP1.push(this.transicionAP1);
+                        this.pilaAPs(this.pilaAP,this.pila1,this.transicionesAP1);
+                        this.pilaAp={agrega:'',elimina:''};
+                        this.transicionAP1={from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+                    }
+                }
+                else{
+                    if(this.apSeleccionado===2)
+                    {
+                        if(this.transicionAP2.from ==='' || this.transicionAP2.to ==='')
+                        {
+                            this.$swal("Estados no ingresadow. Rellene todos los campos antes de continuar",{
+                                className: "alertas",
+                                button: "Aceptar",
+                                title: "Aviso",
+                                icon: "warning"
+                            });
+                            return;
+                        }
+                        for( var k =0; k<this.transicionesAP2.length; k++)
+                        {
+                            if(this.transicionesAP2[k].from===this.transicionAP2.from && this.transicionesAP2[k].label === this.transicionAP2.label)
+                            {
+                                this.$swal("La transición ya existe. Ingrese otra",{
+                                    className: "alertas",
+                                    button: "Aceptar",
+                                    title: "Aviso",
+                                    icon: "warning"
+                                });
+                            }
+                        }
+                        if(!this.existeEstadoTransicion(this.estadosAP2, this.transicionAP2))
+                        {
+                            this.$swal("Los estados ingresados no existen. Ingrese otros estados para generar la transición",{
+                                className: "alertas",
+                                button: "Aceptar",
+                                title: "Aviso",
+                                icon: "warning",
+                            });
+                            return;
+                        }
+                        this.addCaracterToAlfabeto();
+                        this.transicionesAP2.push(this.transicionAP2);
+                        this.pilaAPs(this.pilaAP,this.pila2,this.transicionesAP2);
+                        this.transicionAP2={from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+                    }
+                }
+            }
+            this.drawAutomata();
+        },
+        // verificar transiciones AFD
     }
 }
 </script>
