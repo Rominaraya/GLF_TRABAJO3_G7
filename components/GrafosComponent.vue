@@ -695,7 +695,89 @@ export default {
             }
             this.drawAutomata();
         },
-        // verificar transiciones AFD
+        existeTransicionAFD(transiciones,transicion){
+            var caracteres= [];
+            var aux;
+            for(var i=0; i< transiciones.length;i++){
+                if(transiciones[i].from===transicion.from && transiciones[i].to===transicion.to)
+                {
+                    if(transiciones[i].label.includes('+'))
+                    {
+                        aux=transiciones[i].label;
+                        caracteres=aux.split('+');
+                        for(var j=0; j<caracteres.length;j++)
+                        {
+                            if(caracteres[j]===transicion.label)
+                            {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+        },
+        existeFinales(opcion){
+            if(opcion==1)
+            {
+                for(var i=0; i<this.estadosAutomataAFD.length;i++)
+                {
+                    if(this.estadosAutomataAFD[i].final===true)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else{
+                var existe1=false;
+                var existe2=false;
+                for(var j=0; j<this.estadosAP1.length;j++)
+                {
+                    if(this.estadosAP1[j].final===true)
+                    {
+                        existe1=true;
+                    }
+                }
+                for(var k=0; k<this.estadosAP2.length;k++)
+                {
+                    if(this.estadosAP2[k].final===true)
+                    {
+                        existe2=true;
+                    }
+                }
+                if(existe1 && existe2)
+                {
+                    return true;
+                }
+                return false;
+            }
+        },
+        delAndClear(){
+            if(this.option===1)
+            {
+                this.estadosAutomataAFD=[];
+                this.transicionesAutomataAFD=[];
+            }
+            else{
+                if(this.apSeleccionado===1)
+                {
+                    this.estadosAP1=[];
+                    this.transicionesAP2=[];
+                }
+                else{
+                    if(this.apSeleccionado===2)
+                    {
+                        this.estadosAP2=[];
+                        this.transicionesAP2=[];
+                    }
+                }
+            }
+            console.log("Autómata eliminado");
+            this.drawAutomata();
+        },
+        
+        // simplificarAlfabeto
     }
 }
 </script>
