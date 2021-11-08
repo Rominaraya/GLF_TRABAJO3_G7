@@ -450,7 +450,102 @@ export default {
             this.showAps=false;
             this.apSeleccionado=2;
         },
-        //agregar desde aquí
+        mostrarOP1(){
+            
+            if(this.existeFinales(1)){
+                this.opcion=1;
+            }
+            else{
+                this.$swal("Para proseguir debe marcar como final a lo menos un estado del autómata AFD",{
+                    className: "alertas",
+                    button:'Aceptar',
+                    title:"Aviso",
+                    icon:"warning",
+                });
+                return;
+            }
+        },
+        mostrarOP2(){
+            if(this.existeFinales(2)){
+                this.opcion=2;
+            }
+            else{
+                this.$swal("Para proseguir debe marcar como final a lo menos un estado en los autómataa",{
+                    className: "alertas",
+                    button:'Aceptar',
+                    title:"Aviso",
+                    icon:"warning",
+                });
+                return;
+            }
+            
+        },
+         mostrarOP3(){
+            if(this.existeFinales(3)){
+                this.opcion=3;
+            }
+            else{
+                this.$swal("Para proseguir debe marcar como final a lo menos un estado en los autómataa",{
+                    className: "alertas",
+                    button:'Aceptar',
+                    title:"Aviso",
+                    icon:"warning",
+                });
+                return;
+            }
+        },
+        existeEstadoTransicion(estados, transicion)
+        {
+            var existeFrom=false;
+            var existeTo= false;
+            for(var i=0; i<estados.length;i++)
+            {
+                if(estados[i].id===transicion.from)
+                {
+                    existeFrom=true;
+                }
+                else{
+                    if(estados[i].id!=transicion.from && existeFrom===true)
+                    {
+                        existeFrom=true;
+                    }
+                    else{
+                        if(estados[i].id!=transicion.from && existeFrom===false)
+                        {
+                            existeFrom=false;
+                        }
+                    }
+                }
+            }
+            for(var j=0; j<estados.length;j++)
+            {
+                if(estados[j].id===transicion.to)
+                {
+                    existeTo=true;
+                }
+                else{
+                    if(estados[j].id!=transicion.to && existeTo===true)
+                    {
+                        existeTo=true;
+                    }
+                    else{
+                        if(estados[j].id!=transicion.to && existeTo===false)
+                        {
+                            existeTo=false;
+                        }
+                    }
+                }
+            }
+            if(existeFrom && existeTo)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+        // Crear transiciones
+        
     }
 }
 </script>
