@@ -203,8 +203,7 @@
                         </thead>
                         <tbody>
                             <tr >
-                                <td>{{index}}</td>
-                                <td>{{item.label}}</td>
+
                                 <td>
                                     <div>
                                         <input type="checkbox" name="state" id="state">
@@ -225,8 +224,7 @@
                         </thead>
                         <tbody>
                             <tr >
-                                <td>{{index}}</td>
-                                <td>{{item.label}}</td>
+
                                 <td>
                                     <div>
                                         <input type="checkbox" name="state" id="state">
@@ -247,8 +245,8 @@
                         </thead>
                         <tbody>
                             <tr >
-                                <td>{{index}}</td>
-                                <td>{{item.label}}</td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <div>
                                         <input type="checkbox" name="state" id="state">
@@ -302,7 +300,7 @@
                         <a href="#ER"><button class="btn btn-success">Mostrar expresion regular</button></a>
                     </div>
                     <div class="my-3">
-                        <h3 class="my-3">La expresión regular del AFD es: <strong> {{expresionRegularAFD}} </strong></h3>
+                        <h3 class="my-3">La expresión regular del AFD es: <strong> expresionRegularAFD </strong></h3>
                         <div id="ER" style="border:1px solid lightgray;"></div>
                     </div>
                 </div>
@@ -334,7 +332,7 @@
                     <div id="APUNIDOS" style="border:1px solid lightgray;"></div>
                 </div>
             </div>
-        </div>
+            </div>
      </div>
 </template>
 
