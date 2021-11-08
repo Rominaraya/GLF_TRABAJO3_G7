@@ -777,7 +777,132 @@ export default {
             this.drawAutomata();
         },
         
-        // simplificarAlfabeto
+        simplificarAlfabeto(alfabeto){
+            
+            var newArr = [];
+            var myObj = {};
+            alfabeto.forEach(el => {      
+                if (!(el in myObj)) { 
+                    myObj[el] = true
+                    newArr.push(el)
+                }
+            });
+                        
+            console.log(newArr);
+            return newArr;
+        },
+        pilaAPs(pilaAP,pila,transiciones){
+            if(pila.length<1){
+                pila.push('P')                
+                if(pilaAP.agrega==='' && pilaAP.elimina===''){
+                    for(let k=0;k<transiciones.length;k++){
+                        if(transiciones[k].from!='inicio'){
+                            let nT=transiciones[k].label +  '|' + 'E' + '|' + 'E' 
+                            console.log("nT",nT);
+                            transiciones[k].label= nT;
+                            nT = ''
+                        }
+                    }
+                }
+                if(pilaAP.agrega!='' && pilaAP.elimina==''){
+                    for(let i=0;i<transiciones.length;i++){
+                        
+                        if(transiciones[i].from!='inicio'){
+                            console.log("agrega: ",pilaAP.agrega);
+                            console.log("transiciones ap1 label",transiciones[i].label);
+                            let newT = transiciones[i].label + '|' + 'E' + '|' + pilaAP.agrega;
+                            console.log("newT:",newT);
+                            transiciones[i].label= newT;
+                            newT = ''
+                            pilaAP.agrega=''
+                        }
+                    }    
+                }
+                if(pilaAP.elimina!='' && pilaAP.agrega==''){
+                    console.log("pop()", pilaAP.elimina);
+                    for(let j=1;j<transiciones.length;j++){
+                        console.log("transiciones ap1",transiciones[j]);
+                        let newT = transiciones[j].label + '|' + pilaAP.elimina + '|' +'E'
+                        console.log("newT:",newT);
+                        transiciones[j].label= newT;
+                        newT = '' 
+                    }
+                    pilaAP.elimina=''
+                }
+                if(pilaAP.agrega!='' && pilaAP.elimina!=''){
+                    console.log("agrega: ", pilaAP.agrega, ", elimina: ", pilaAP.elimina);
+                    for(let z=0;z< transiciones.length;z++){
+                        if(transiciones[z].from!='inicio' && !transiciones[z].label.includes('|')){
+                            let newElim = transiciones[z].label + '|' + pilaAP.elimina + '|' + pilaAP.agrega
+                            console.log("newElim", newElim);
+                            transiciones[z].label = newElim;
+                            newElim='';
+                            pilaAP.agrega=''
+                            pilaAP.elimina=''               
+                        }
+                    }
+                }
+                console.log("pila",pilaAP);
+                console.log("pila1",pila);
+            }
+            else{
+                if(pilaAP.agrega==='' && pilaAP.elimina===''){
+                    for(let m=0;m<transiciones.length;m++){
+                        if(transiciones[m].from!='inicio' && !transiciones[m].label.includes('|')){
+                            let nT1=transiciones[m].label +  '|' + 'E' + '|' + '|' + 'E' + '|' 
+                            console.log("nt1",nT1);
+                            transiciones[m].label= nT1;
+                            nT1 = ''
+                        }
+                    }
+                }
+                if(pilaAP.agrega!='' && pilaAP.elimina==''){                   
+                    for(let f=0;f<transiciones.length;f++){                        
+                        if(transiciones[f].from!='inicio' && !transiciones[f].label.includes('|')){
+                            console.log("agrega: ",pilaAP.agrega);
+                            console.log("transiciones ap1 label",transiciones[f].label);
+                            let newT1 = transiciones[f].label + '|' + 'E' + '|' + pilaAP.agrega;
+                            console.log("newT1:",newT1);
+                            transiciones[f].label= newT1;
+                            newT1 = ''
+                            pilaAP.agrega=''
+                        }
+                    }                    
+                }
+                if(pilaAP.elimina!='' && pilaAP.agrega==''){
+                    console.log("pop()", pilaAP.elimina);
+                    for(let d=1;d<transiciones.length;d++){
+                        if(transiciones[d].from!='inicio' && !transiciones[d].label.includes('|')){
+                            console.log("transiciones ap1",transiciones[d]);
+                            let newT2 = transiciones[d].label + '|' + pilaAP.elimina + '|' +'E'
+                            console.log("newT2:",newT2);
+                            transiciones[d].label= newT2;
+                            newT2 = ''                             
+                            pilaAP.elimina=''
+                        }
+                    }
+                }
+                if(pilaAP.agrega!='' && pilaAP.elimina!=''){
+                    console.log("Vienen llenitos");      
+                    console.log("agrega: ", pilaAP.agrega, ", elimina: ", pilaAP.elimina);
+                    for(let o=0;o< transiciones.length;o++){
+                        if(transiciones[o].from!='inicio' && !transiciones[o].label.includes('|')){
+                            console.log("entramos perrito");
+                            let newElim1 = transiciones[o].label + '|' + pilaAP.elimina + '|' + pilaAP.agrega
+                            console.log("newElim1", newElim1);
+                            transiciones[o].label = newElim1;
+                            newElim1='';
+                            pilaAP.agrega=''
+                            pilaAP.elimina=''                           
+                        }
+                    }
+                }
+                console.log("pila",pilaAP);
+                console.log("pila1",pila);
+            }
+            
+        },
+        //Agregar UnionAP
     }
 }
 </script>
