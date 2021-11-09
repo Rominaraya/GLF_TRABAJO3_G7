@@ -902,7 +902,77 @@ export default {
             }
             
         },
-        //Agregar UnionAP
+        unionAp(){
+            let Eap1=[];
+            let Tap1=[];
+    
+            let Eap2=[];
+            let Tap2=[];
+            this.transicionesAutomataUnionAP=[];
+            this.estadosAutomataUnionAP=[];
+            
+            this.copiarAutomata(this.estadosAP1,this.transicionesAP1,Eap1,Tap1);
+            this.copiarAutomata(this.estadosAP2,this.transicionesAP2,Eap2,Tap2);
+            Eap1.splice(0,1);
+            Eap2.splice(0,1);
+            Tap1.splice(0,1);
+            Tap2.splice(0,1);
+            console.log("eap1: ",Eap1);
+            console.log("eap1: ",Tap1);
+            console.log("Eap2 : ",Eap2);
+            console.log("Tap2 : ",Tap2);
+            this.copiarAutomata(Eap1,Tap1,this.estadosAutomataUnionAP,this.transicionesAutomataUnionAP);
+            this.estadosAutomataUnionAP= this.estadosAutomataUnionAP.concat(Eap2);
+            this.transicionesAutomataUnionAP= this.transicionesAutomataUnionAP.concat(Tap2);
+            
+            this.estadoAutomataUnionAP.id='inicio';
+            this.estadoAutomataUnionAP.label='inicio';
+            this.estadoAutomataUnionAP.color='#C25C0B';
+            this.estadosAutomataUnionAP.push(this.estadoAutomataUnionAP);
+            this.transicionAutomataUnionAP.from='inicio';
+            this.transicionAutomataUnionAP.to=Eap1[0].id;
+            this.transicionAutomataUnionAP.label='E|E|E';
+            this.transicionesAutomataUnionAP.push(this.transicionAutomataUnionAP);
+            this.transicionAutomataUnionAP={from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}}
+            this.transicionAutomataUnionAP.from='inicio';
+            this.transicionAutomataUnionAP.to=Eap2[0].id;
+            this.transicionAutomataUnionAP.label='E|E|E';
+            this.transicionesAutomataUnionAP.push(this.transicionAutomataUnionAP);
+            console.log(this.transicionesAutomataUnionAP);
+            console.log(this.estadosAutomataUnionAP);
+            this.drawAutomata();
+        },
+        concatenacionAP(){
+            this.estadosAutomataConcatenacionAP=[];
+            this.transicionesAutomataConcatenacionAP=[];
+            this.copiarAutomata(this.estadosAP1,this.transicionesAP1,this.estadosAutomataConcatenacionAP,this.transicionesAutomataConcatenacionAP);
+            var eap2=[];
+            var tap2=[];
+            this.copiarAutomata(this.estadosAP2,this.transicionesAP2,eap2,tap2);
+            eap2.splice(0,1);
+            tap2.splice(0,1);
+            var inicio=eap2[0].id;
+            for(var i=0; i<this.estadosAutomataConcatenacionAP.length;i++)
+            {
+                if(this.estadosAutomataConcatenacionAP[i].final===true)
+                {
+                    this.transicionAutomataConcatenacionAP.from=this.estadosAutomataConcatenacionAP[i].id;
+                    this.transicionAutomataConcatenacionAP.label='E|E|E';
+                    this.transicionAutomataConcatenacionAP.to=inicio;
+                    this.transicionAutomataConcatenacionAP.color={color:'rgb(255,0,0)'};
+                    this.transicionesAutomataConcatenacionAP.push(this.transicionAutomataConcatenacionAP);
+                    this.transicionAutomataConcatenacionAP={from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}};
+                    this.estadosAutomataConcatenacionAP[i].final=false;
+                    this.estadosAutomataConcatenacionAP[i].shape='ellipse';
+                    this.estadosAutomataConcatenacionAP[i].color='#C25C0B';
+                }
+            }
+            this.estadosAutomataConcatenacionAP=this.estadosAutomataConcatenacionAP.concat(eap2);
+            this.transicionesAutomataConcatenacionAP=this.transicionesAutomataConcatenacionAP.concat(tap2);
+            console.log("trans concatenacion: ",this.transicionesAutomataConcatenacionAP);
+            this.drawAutomata();
+        },
+        // Crea Copia de Automata
     }
 }
 </script>
