@@ -972,7 +972,116 @@ export default {
             console.log("trans concatenacion: ",this.transicionesAutomataConcatenacionAP);
             this.drawAutomata();
         },
-        // Crea Copia de Automata
+        copiarAutomata(estadosIn,transicionesIn, estadosOut,transicionesOut)
+        {
+            var estado={id:'', label:'',color:'#C52C0B', final:false, shape:'ellipse'};
+            var transiciones={from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+            for(var i=0; i<estadosIn.length;i++)
+            {
+                estado.id= estadosIn[i].id;
+                estado.label= estadosIn[i].label;
+                estado.color= estadosIn[i].color;
+                estado.final= estadosIn[i].final;
+                estado.shape= estadosIn[i].shape;
+                estadosOut.push(estado);
+                estado={id:'', label:'',color:'#C52C0B', final:false, shape:'ellipse'};
+            }
+            for(var j=0; j<transicionesIn.length; j++)
+            {
+                transiciones.from= transicionesIn[j].from;
+                transiciones.label= transicionesIn[j].label;
+                transiciones.to= transicionesIn[j].to;
+                transicionesOut.push(transiciones);
+                transiciones={from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+            }
+        },
+        addCaracterToAlfabeto(){
+            var existe=false;
+            if(this.option===1)
+            {
+                for(var i=0; i<this.transicionAutomataAFD.length; i++)
+                {
+                    if(existe===true && this.transicionAutomataAFD.label!= this.transicionesAutomataAFD[i].label)
+                    {
+                        existe=true;
+                    }
+                    else{
+                        if(this.transicionesAutomataAFD[i].label===this.transicionAutomataAFD.label && existe===false)
+                        {
+                            existe=true;
+                        }
+                        else{
+                            if(this.transicionesAutomataAFD[i].label!=this.transicionAutomataAFD.label && existe==false)
+                            {
+                                existe=false;
+                            }
+                        }
+                    }
+                }
+                if(!existe)
+                {
+                    this.alfabetoAFD.push(this.transicionAutomataAFD.label);
+                    this.alfabetoAFD=this.simplificarAlfabeto(this.alfabetoAFD);
+                }
+                console.log("Alfabeto AFD: ",this.alfabetoAFD);
+            }
+            else{
+                if(this.apSeleccionado===1)
+                {
+                    for(var j=0; j<this.transicionesAP1.length;j++)
+                    {
+                        if(existe===true && this.transicionAP1.label!= this.transicionesAP1[j].label)  
+                        {
+                            existe=true;
+                        }
+                        else{
+                            if(this.transicionesAP1[j].label === this.transicionAP1.label)
+                            {
+                                existe=true;
+                            }
+                            else{
+                                existe=false;
+                            }
+                        }
+                    }
+                    if(!existe)
+                    {
+                        this.alfabetoAP1.push(this.transicionAP1.label);
+                        this.alfabetoAP1=this.simplificarAlfabeto(this.alfabetoAP1);
+                    }
+                    console.log("Alfabeto AP1: ",this.alfabetoAP1);
+                }
+                else{
+                    if(this.apSeleccionado===2)
+                    {
+                        for(var k=0; k<this.transicionesAP2; k++)
+                        {
+                            if(existe===true && this.transicionAP2.label!= this.transicionesAP2[k].label)
+                            {
+                                existe=true;
+                            }
+                            else{
+                                if(this.transicionesAP2[k].label=== this.transicionAP2.label)
+                                {
+                                    existe=true;
+                                }
+                                else{
+                                    existe=false;
+                                }
+                            }
+                        }
+                        if(!existe)
+                        {
+                            this.alfabetoAP2.push(this.transicionAP2.label);
+                            this.alfabetoAP2=this.simplificarAlfabeto(this.alfabetoAP2);
+                        }
+                        console.log("Alfabeto AP2: ",this.alfabetoAP2);
+                    }
+                }
+            }
+            
+        }, 
+        // crear estados distintos
     }
 }
 </script>
