@@ -1081,7 +1081,204 @@ export default {
             }
             
         }, 
-        // crear estados distintos
+        estadosDistintos(estados,estado)
+        {
+            for(var i=0; i<estados.length;i++)
+            {
+                if(estados[i].id===estado.id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        },
+        crearEstado(){
+            var aux= {id:'inicio', label:'inicio',color:'#75616b47', final:false};
+            if(this.option===1)
+            {
+                if(this.estadoAutomataAFD.id==='')
+                {
+                    this.$swal("Por favor, ingrese un id",{
+                        className: "alertas",
+                        button: "Aceptar",
+                        icon: "warning",
+                        title: "Aviso",
+                    });
+                    return;
+                }
+                if(this.existeEstado(this.estadosAutomataAFD, this.estadoAutomataAFD))
+                {
+                    this.$swal("El estado ya existe. Ingrese un estado con otro id.",{
+                        className: "alertas",
+                        button: "Aceptar",
+                        icon: "warning",
+                        title: "Aviso",
+                    });
+                    return;
+                }
+                if(this.estadosAutomataAFD.length===0)
+                {
+                    this.estadosAutomataAFD.push(aux);
+                }
+                this.estadoAutomataAFD.label=this.estadoAutomataAFD.id;
+                if(this.estadosAutomataAFD.length===1)
+                {
+                    this.estadosAutomataAFD.push(this.estadoAutomataAFD);
+                    this.transicionAutomataAFD.from='inicio';
+                    this.transicionAutomataAFD.label='E';
+                    this.transicionAutomataAFD.to= this.estadoAutomataAFD.id;
+                    this.transicionesAutomataAFD.push(this.transicionAutomataAFD);
+                    this.transicionAutomataAFD= {from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+                    this.estadoAutomataAFD= {id:'', label:'',color:'#C52C0B' ,final:false};
+                    this.drawAutomata();
+                    return;
+                }
+                else{
+                    this.estadosAutomataAFD.push(this.estadoAutomataAFD);
+                    this.estadoAutomataAFD= {id:'', label:'',color:'#C52C0B' ,final:false};
+                    this.drawAutomata();
+                }
+            }
+            else{
+                if(this.apSeleccionado===1)
+                {
+                    if(this.estadoAP1.id==='')
+                    {
+                        this.$swal("Por favor, ingrese un id",{
+                            className: "alertas",
+                            button: "Aceptar",
+                            icon: "warning",
+                            title: "Aviso",
+                        });
+                        return;
+                    }
+                    if(this.existeEstado(this.estadosAP1,this.estadoAP1))
+                    {
+                        this.$swal("El estado ya existe. Ingrese un estado con otro id.",{
+                            className: "alertas",
+                            button: "Aceptar",
+                            icon: "warning",
+                            title: "Aviso",
+                        });
+                        return;
+                    }
+                    if(this.estadosAP1.length===0)
+                    {
+                        this.estadosAP1.push(aux);
+                    }
+                    this.estadoAP1.label=this.estadoAP1.id;
+                    if(this.estadosAP1.length===1)
+                    {
+                        if(!this.estadosDistintos(this.estadosAP2,this.estadoAP1))
+                        {
+                            this.$swal("El id debe ser distinto al/los estado(s) del otro autómata",{
+                                className: "alertas",
+                                button: "Aceptar",
+                                icon: "warning",
+                                title: "Aviso",
+                            });
+                            return;
+                        }
+                        this.estadosAP1.push(this.estadoAP1);
+                        this.transicionAP1.from='inicio';
+                        this.transicionAP1.label='';
+                        this.transicionAP1.to= this.estadoAP1.id;
+                        console.log("tr1", this.transicionAP1);
+                        this.transicionesAP1.push(this.transicionAP1);
+                        this.transicionAP1= {from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+                        this.estadoAP1= {id:'', label:'',color:'#C52C0B' ,final:false};
+                        this.drawAutomata();
+                        console.log("tr2",this.transicionesAP1);
+                        return;
+                    }
+                    else{
+                        if(!this.estadosDistintos(this.estadoAP2,this.estadoAP1))
+                        {
+                            this.$swal("El id debe ser distinto al/los estado(s) del otro autómata",{
+                                className:"alertas",
+                                button:"Aceptar",
+                                icon:"warning",
+                                title:"Aviso",
+                            });
+                            return;
+                        }
+                        this.estadosAP1.push(this.estadoAP1);
+                        this.estadoAP1= {id:'', label:'',color:'#C52C0B' ,final:false};
+                        this.drawAutomata();
+                        return;
+                    }
+                }
+                else{
+                    if(this.apSeleccionado===2)
+                    {
+                         if(this.estadoAP2.id==='')
+                        {
+                            this.$swal("Por favor, ingrese un id",{
+                                className: "alertas",
+                                button: "Aceptar",
+                                icon: "warning",
+                                title: "Aviso",
+                            });
+                            return;
+                        }
+                        if(this.existeEstado(this.estadosAP2,this.estadoAP2))
+                        {
+                            this.$swal("El estado ya existe. Ingrese un estado con otro id.",{
+                                className: "alertas",
+                                button: "Aceptar",
+                                icon: "warning",
+                                title: "Aviso",
+                            });
+                            return;
+                        }
+                        if(this.estadosAP2.length===0)
+                        {
+                            this.estadosAP2.push(aux);
+                        }
+                        this.estadoAP2.label=this.estadoAP2.id;
+                        if(this.estadosAP2.length===1)
+                        {
+                            if(!this.estadosDistintos(this.estadosAP1,this.estadoAP2))
+                            {
+                                this.$swal("El id debe ser distinto al/los estado(s) del otro autómata",{
+                                    className: "alertas",
+                                    button: "Aceptar",
+                                    icon: "warning",
+                                    title: "Aviso",
+                                });
+                                return;
+                            }
+                            this.estadosAP2.push(this.estadoAP2);
+                            this.transicionAP2.from='inicio';
+                            this.transicionAP2.label='';
+                            this.transicionAP2.to= this.estadoAP2.id;
+                            this.transicionesAP2.push(this.transicionAP2);
+                            this.transicionAP2= {from:'',label: '',to:'',color:{color:'rgb(0,0,0)'}};
+                            this.estadoAP2= {id:'', label:'',color:'#C52C0B' ,final:false};
+                            this.drawAutomata();
+                            return;
+                        }
+                        else{
+                            if(!this.estadosDistintos(this.estadosAP1,this.estadoAP2))
+                            {
+                                this.$swal("El id debe ser distinto al/los estado(s) del otro autómata",{
+                                    className:"alertas",
+                                    button:"Aceptar",
+                                    icon:"warning",
+                                    title:"Aviso",
+                                });
+                                return;
+                            }
+                            this.estadosAP2.push(this.estadoAP2);
+                            this.estadoAP2= {id:'', label:'',color:'#C52C0B' ,final:false};
+                            this.drawAutomata();
+                            return;
+                        }
+                    }
+                }
+            }        
+        },
+        //Crear existe estado
     }
 }
 </script>
