@@ -1278,7 +1278,107 @@ export default {
                 }
             }        
         },
-        //Crear existe estado
+        existeEstado(estados,estado)
+        {
+            for(var i=0; i<estados.length; i++)
+            {
+                if(estados[i].id==estado.id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        },
+        existeFinal(estados){
+            for(var i=0; i<estados.length;i++)
+            {
+                if(estados[i].final===true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        },
+        marcarFinal(id){
+            if(this.option===1)
+            {
+                for(var i=0; i<this.estadosAutomataAFD.length; i++)
+                {
+                    if(this.estadosAutomataAFD[i].id===id && this.estadosAutomataAFD[i].final===false)
+                    {
+                        this.estadosAutomataAFD[i].final= true;
+                        this.estadosAutomataAFD[i].shape= 'diamond';
+                        this.estadosAutomataAFD[i].color = '#5cb85c';
+                        this.drawAutomata();
+                        console.log("Estado final: ", i, this.estadosAutomataAFD[i].final);
+                    }
+                    else{
+                        if(this.estadosAutomataAFD[i].id===id && this.estadosAutomataAFD[i].final===true)
+                        {
+                            this.estadosAutomataAFD[i].final= false;
+                            this.estadosAutomataAFD[i].shape= 'ellipse';
+                            this.estadosAutomataAFD[i].color= '#C52C0B';
+                            this.drawAutomata();
+                        }
+                    }
+                }
+            }
+            else{
+                if(this.apSeleccionado===1)
+                {
+                    for(var j=0; j<this.estadosAP1.length; j++)
+                    {
+                        if(this.estadosAP1[j].id===id && this.estadosAP1[j].final===false)
+                        {
+                            this.estadosAP1[j].final= true;
+                            this.estadosAP1[j].shape= 'diamond';
+                            this.estadosAP1[j].color = '#5cb85c';
+                            this.drawAutomata();
+                            console.log("Estado final: ", j, this.estadosAP1[j].final);
+                        }
+                        else
+                        {
+                            if(this.estadosAP1[j].id===id && this.estadosAP1[j].final===true)
+                            {
+                                this.estadosAP1[j].final= false;
+                                this.estadosAP1[j].shape= 'ellipse';
+                                this.estadosAP1[j].color = '#C52C0B';
+                                this.drawAutomata();
+                                console.log("Estado final: ", j, this.estadosAP1[j].final);
+                            }
+                        }
+                    }
+                }
+                else{
+                    if(this.apSeleccionado===2)
+                    {
+                        for(var k=0; k<this.estadosAP2.length; k++)
+                        {
+                            if(this.estadosAP2[k].id===id && this.estadosAP2[k].final===false)
+                            {
+                                this.estadosAP2[k].final= true;
+                                this.estadosAP2[k].shape= 'diamond';
+                                this.estadosAP2[k].color = '#5cb85c';
+                                this.drawAutomata();
+                                console.log("Estado final: ", k, this.estadosAP2[k].final);
+                            }
+                            else
+                            {
+                                if(this.estadosAP2[k].id===id && this.estadosAP2[k].final===true)
+                                {
+                                    this.estadosAP2[k].final= false;
+                                    this.estadosAP2[k].shape= 'ellipse';
+                                    this.estadosAP2[k].color = '#C52C0B';
+                                    this.drawAutomata();
+                                    console.log("Estado final: ", k, this.estadosAP2[k].final);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        // crear existe caracter AFD
     }
 }
 </script>
