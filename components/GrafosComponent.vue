@@ -1803,7 +1803,24 @@ export default {
             }
             return false;
         },
-        //salen finales
+         salenFinales(finales){
+            console.log("funcion salen finales");
+            for(var t=0; t<this.estadosAutomataAFD.length;t++){
+                if(this.estadosAutomataAFD[t].final===true){
+                    this.estadosAutomataAFD[t].final=false;
+                    this.estadosAutomataAFD[t].shape='ellipse';
+                    this.estadosAutomataAFD[t].color='#C25C0B';
+                }
+            }
+            this.estadoAutomataAFD.final=true;
+            this.estadoAutomataAFD.shape='diamond';
+            this.estadoAutomataAFD.color='#5cb85c';
+            this.estadoAutomataAFD.id='Final';
+            this.estadoAutomataAFD.label='Final';
+            this.estadosAutomataAFD.push(this.estadoAutomataAFD);
+            this.estadoAutomataAFD={id: '', label: '', color: '#C25C0B', final: false};
+            return true;
+        },
     }
 }
 </script>
