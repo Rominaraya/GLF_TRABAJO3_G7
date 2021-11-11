@@ -1457,7 +1457,81 @@ export default {
                 var networkConcatenacion= new vis.Network(apConcatenados,dataAPConcatenados,options);
             }
         },
-        //crear revisar transición
+        revisartransicion(transaux, label){
+            var array2 = [];
+            array2 = label.split('');
+            array2 = this.encontrarparentesis(array2);
+            if(transaux.includes('+')){ 
+                if(array2.includes('+')){ 
+                    if(array2[array2.length-1]==transaux || array2[array2.length-3]==transaux){
+                        return true;
+                    }else{
+                        return false; 
+                    } 
+                }else{
+                    return false;       
+                }
+            }else{ 
+                if(transaux.includes('*')){ 
+                    if(array2.includes('*')){ 
+                        if(array2[array2.length-1]==transaux || array2[array2.length-3]==transaux){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        return false;
+                    }
+                }
+            }
+        },
+        encontrarparentesis(array){   
+            var aux='';
+            var arrayaux=[];
+            let c=0;
+            for(let i=0; i<array.length;i++){  
+                if(array[i]=='('){
+                    aux=aux.concat(array[i]);
+                    i++;
+                    c++;
+                    for(let j=i; j<array.length;j++)
+                    {
+                        if(array[j]!=')')
+                        {
+                            aux=aux.concat(array[j]);
+                            i++;
+                            if(array[j]=='('){
+                                c++;
+                            }
+                        }
+                        else{
+                            if(array[j]==')'){
+                                aux=aux.concat(array[j]);
+                                c--;
+                                i++;
+                                if(j+1<=array.length-1){
+                                    if(array[j+1]=='*')
+                                    {
+                                        aux=aux.concat(array[j+1]);
+                                        i++;
+                                        j++;
+                                    }
+                                }
+                                if(c==0){
+                                    j=array.length+1;
+                                }
+                            }
+                        }
+                    }
+                    arrayaux.push(aux);
+                    aux='';
+                }else{ 
+                    arrayaux.push(array[i]);
+                }
+            }
+            return arrayaux;
+        },
+        // Encontrar expresion regular
     }
 }
 </script>
