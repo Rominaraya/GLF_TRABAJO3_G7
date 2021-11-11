@@ -1531,7 +1531,245 @@ export default {
             }
             return arrayaux;
         },
-        // Encontrar expresion regular
+        encontrarExpresionRegular(){
+            this.automataER=[];
+            this.transicionesER=[];
+            var estadosAFDCopia=[];
+            var transAFDCopia=[];
+            this.copiarAutomata(this.estadosAutomataAFD,this.transicionesAutomataAFD,estadosAFDCopia,transAFDCopia);
+            var finales=[];
+            for(var i=0; i<this.estadosAutomataAFD.length; i++)
+            {
+                if(this.estadosAutomataAFD[i].final===true)
+                {
+                    finales.push(this.estadosAutomataAFD[i].id);
+                }
+            }
+            if(this.salenFinales(finales)){
+                for(var j=0; j<finales.length;j++)
+                {
+                    this.transicionAutomataAFD.from=finales[j];
+                    this.transicionAutomataAFD.to='Final';
+                    this.transicionAutomataAFD.label='E';
+                    this.transicionesAutomataAFD.push(this.transicionAutomataAFD);
+                    this.transicionAutomataAFD={from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}};
+                }
+            }
+            console.log("Estados:",this.estadosAutomataAFD);
+            var primero='inicio';
+            var final='Final';
+            var transicion={from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}};
+            var arraytrans=[];
+            var arrayentrada=[];
+            var arraysalida=[];
+            var auxtrans='';
+            var labelaux='';
+            var cant={label: '', cantidad: 0, indices: []};
+            var arraycantentrada=[];
+            var arraycantsalida=[];
+            var c=0;
+            var largo=this.transicionesAutomataAFD.length;
+            for(var k=0; k<largo;k++)
+            {
+                if(this.transicionesAutomataAFD[k]!=undefined)
+                {
+                    if(this.transicionesAutomataAFD[k].to==final){
+                        let valor=this.transicionesAutomataAFD[k];
+                        for(var p=0; p<this.transicionesAutomataAFD.length; p++){
+                            if(valor.from==this.transicionesAutomataAFD[p].to || valor.from==this.transicionesAutomataAFD[p].from){
+                                arraytrans.push(this.transicionesAutomataAFD[p]);
+                                this.transicionesAutomataAFD.splice(p,1);
+                                p--;
+                                k--;
+                            }
+                        }
+                        console.log("valor 2", valor);
+                        console.log("Array trans:", arraytrans);
+                        for(var q=0; q<arraytrans.length; q++){
+                            if(arraytrans[q].from != valor.from){
+                                arrayentrada.push(arraytrans[q].from);
+                            }
+                            if(arraytrans[q].to != valor.from){
+                                arraysalida.push(arraytrans[q].to);
+                            }
+                        }
+                        console.log("Array entrada:", arrayentrada);
+                        console.log("Array salida:", arraysalida);
+                        for(let w=0; w<arrayentrada.length; w++){ 
+                            cant.label=arrayentrada[w];
+                            if(arrayentrada.length==0){
+                                cant.cantidad=0;
+                                arraycantentrada.push(cant);
+                            }else{
+                                for(let x=0; x<arrayentrada.length; x++){
+                                    if(arrayentrada[w]==arrayentrada[x] && w!=x){
+                                        c++;
+                                    }
+                                }
+                                cant.cantidad=c;
+                                
+                                for(let e=0; e<arraytrans.length; e++){
+                                    if(arrayentrada[w]==arraytrans[e].from){
+                                        cant.indices.push(e);
+                                    }
+                                }
+                                if(!this.existeenarray(cant.label, arraycantentrada)){
+                                    arraycantentrada.push(cant);
+                                }
+                                
+                                c=0;
+                                cant={label: '', cantidad: 0, indices: []};
+                            }
+                        }
+                        console.log("array cant entrada", arraycantentrada);
+                        for(let y=0; y<arraysalida.length; y++){ 
+                            cant.label=arraysalida[y];
+                            if(arraysalida.length==0){
+                                cant.cantidad=0;
+                                arraycantsalida.push(cant);
+                            }else{
+                                for(let z=0; z<arraysalida.length; z++){
+                                    if(arraysalida[y]==arraysalida[z] && y!=z){
+                                        c++;
+                                    }
+                                }
+                                cant.cantidad=c;
+                                for(let g=0; g<arraytrans.length; g++){
+                                    if(arraysalida[y]==arraytrans[g].to){
+                                        cant.indices.push(g);
+                                    }
+                                }
+                                if(!this.existeenarray(cant.label, arraycantsalida)){
+                                    arraycantsalida.push(cant);
+                                }
+                                
+                                c=0;
+                                cant={label: '', cantidad: 0, indices: []};
+                            }
+                        }
+                        console.log("array cant salida", arraycantsalida);
+                        for(var r=0; r<arrayentrada.length; r++){
+                            for(var s=0; s<arraysalida.length; s++){
+                                transicion.from=arrayentrada[r];
+                                transicion.to=arraysalida[s];
+                                console.log("from:",transicion.from, "to:", transicion.to)
+                                for(var t=0; t<arraytrans.length; t++){
+                                    console.log("array from:",arraytrans[t].from,"- array entrada: ",arrayentrada[r]);
+                                    if(arraytrans[t].from==arrayentrada[r]){
+                                        console.log('for con t');
+                                        for(var f=0; f<arraycantentrada.length; f++){
+                                            console.log("array[t] from:",arraytrans[t].from,"- array cant entrada: ",arraycantentrada[f].label);
+                                            if(arraytrans[t].from == arraycantentrada[f].label){
+                                                if(arraycantentrada[f].cantidad==0){
+                                                    console.log("concatene 1", arraytrans[t].label);
+                                                    labelaux = labelaux.concat(arraytrans[t].label);
+                                                    console.log('labelaux',labelaux);
+                                                    t=arraytrans.length;
+                                                    f=arraycantentrada.length; 
+                                                }
+                                                else{
+                                                    let aparte1=arraycantentrada[f].indices[arraycantentrada[f].indices.length-1];
+                                                    arraycantentrada[f].indices.splice(arraycantentrada[f].indices.length-1 ,1)
+                                                    console.log("concatene 2", arraytrans[aparte1].label);
+                                                    labelaux = labelaux.concat(arraytrans[aparte1].label);
+                                                    console.log('labelaux',labelaux);
+                                                    arraycantentrada[f].cantidad=arraycantentrada[f].cantidad-1;
+                                                    t=arraytrans.length;
+                                                    f=arraycantentrada.length;                                                   
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                for(var u=0; u<arraytrans.length; u++){
+                                    if(arraytrans[u].from == arraytrans[u].to){
+                                        auxtrans='('+arraytrans[u].label+')'+'*'
+                                        if(!this.revisartransicion(auxtrans, labelaux)){
+                                            labelaux=labelaux.concat(auxtrans);
+                                            console.log('labelaux',labelaux);
+                                        }
+                                        auxtrans='';
+                                    }
+                                }
+                                for(var v=0; v<arraytrans.length; v++){
+                                    console.log("array from:",arraytrans[v].to,"- array salida: ",arraysalida[s]);
+                                    if(arraytrans[v].to==arraysalida[s]){ 
+                                        console.log('for con v');
+                                        for(var a=0; a<arraycantsalida.length; a++){
+                                            console.log("array[v] to:",arraytrans[v].to,"- array cant salida: ",arraycantsalida[a].label);
+                                            if(arraytrans[v].to == arraycantsalida[a].label){
+                                                if(arraycantsalida[a].cantidad==0){
+                                                    console.log("concatene 1", arraytrans[v].label);
+                                                    labelaux = labelaux.concat(arraytrans[v].label);
+                                                    console.log('labelaux',labelaux);
+                                                    v=arraytrans.length;
+                                                    a=arraycantsalida.length; 
+                                                }
+                                                else{
+                                                    let aparte=arraycantsalida[a].indices[arraycantsalida[a].indices.length-1];
+                                                    arraycantsalida[a].indices.splice(arraycantsalida[a].indices.length-1, 1);
+                                                    console.log("concatene 2", arraytrans[aparte].label);
+                                                    labelaux = labelaux.concat(arraytrans[aparte].label);
+                                                    console.log('labelaux',labelaux);
+                                                    arraycantsalida[a].cantidad=arraycantsalida[a].cantidad-1;
+                                                    v=arraytrans.length;
+                                                    a=arraycantsalida.length;                                                   
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                transicion.label=labelaux;
+                                this.transicionesAutomataAFD.push(transicion);
+                                largo++;
+                                transicion={from: '', label: '', to: '', color: {color: 'rgb(0,0,0)'}};
+                                labelaux='';
+                            }
+                        }
+                        arraytrans=[];
+                        arrayentrada=[];
+                        arraysalida=[];
+                        arraycantsalida=[];
+                        arraycantentrada=[];
+                    }
+                
+                }
+                else{
+                    k=999999;
+                } 
+                if(this.verificarTermino(this.transicionesAutomataAFD)){
+                    k=999999;
+                }
+            }
+            var expFinal='';
+            console.log("transiciones finales: ",this.transicionesAutomataAFD);
+            for(let b=0; b<this.transicionesAutomataAFD.length;b++){
+                let expresion;
+                expresion=this.transicionesAutomataAFD[b].label.split('');
+                expresion.splice(0,1);
+                expresion.splice(expresion.length-1,1);
+                expresion=expresion.join('');
+                this.transicionesAutomataAFD[b].label=expresion
+                if(expFinal==''){
+                    expFinal=this.transicionesAutomataAFD[b].label;
+                }
+                else{
+                    expFinal=expFinal + ' + ' + this.transicionesAutomataAFD[b].label
+                }
+            }
+            console.log("Expresion final: ",expFinal);
+            this.transicionesAutomataAFD=[];
+            this.transicionAutomataAFD={from: 'inicio', label:expFinal, to: 'Final', color: {color: 'rgb(0,0,0)'}}
+            this.transicionesAutomataAFD.push(this.transicionAutomataAFD);
+            this.transicionAutomataAFD={from: '', label:'', to: '', color: {color: 'rgb(0,0,0)'}}
+            this.eliminarEstados(this.estadosAutomataAFD);
+            this.expresionRegularAFD=expFinal;
+            this.copiarAutomata(this.estadosAutomataAFD,this.transicionesAutomataAFD,this.automataER,this.transicionesER);
+            this.estadosAutomataAFD=estadosAFDCopia;
+            this.transicionesAutomataAFD=transAFDCopia;
+            this.drawAutomata();
+        },
+        //verificar Termino
     }
 }
 </script>
