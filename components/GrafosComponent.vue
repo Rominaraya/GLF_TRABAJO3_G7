@@ -1378,7 +1378,88 @@ export default {
                 }
             }
         },
-        // crear existe caracter AFD
+        existeCaracterAFD(caracter){
+            for(var i=0; i<this.alfabetoAFD.length;i++)
+            {
+                if(this.alfabetoAFD[i]===caracter)
+                {
+                    return true;
+                }
+            }
+            return false;
+        },
+        existeCaracterAP(caracter){
+            for(var i=0; i<this.alfabetoAP1.length;i++)
+            {
+                if(this.alfabetoAP1[i]===caracter)
+                {
+                    return true;
+                }
+            }
+            return false;
+        },
+        drawAutomata(){
+            var afd= document.getElementById("AFD");
+            var ap1= document.getElementById("AP1");
+            var ap2= document.getElementById("AP2");
+            var apConcatenados= document.getElementById("APCONCATENADO");
+            var apUnidos= document.getElementById("APUNIDOS");
+            var ER= document.getElementById("ER");
+            var dataAFD= {
+                nodes: this.estadosAutomataAFD,
+                edges: this.transicionesAutomataAFD,
+            };
+            var dataAP1= {
+                nodes: this.estadosAP1,
+                edges: this.transicionesAP1,
+            };
+            var dataAP2= {
+                nodes: this.estadosAP2,
+                edges: this.transicionesAP2,
+            };
+            var dataAPConcatenados= {
+                nodes: this.estadosAutomataConcatenacionAP,
+                edges: this.transicionesAutomataConcatenacionAP,
+            };
+            var dataAPUnidos= {
+                nodes: this.estadosAutomataUnionAP,
+                edges: this.transicionesAutomataUnionAP,
+            };
+            var dataER= {
+                nodes: this.automataER,
+                edges: this.transicionesER,
+            }
+            var options = {
+                height: 320 +'px',
+                edges:{
+                    arrows: 'to',
+                },
+            };
+            if(this.option===1)
+            {
+                var networkAFD= new vis.Network(afd,dataAFD,options);
+                if(this.opcion===1)
+                {
+                    var networkER= new vis.Network(ER,dataER,options);
+                }
+            }
+            if(this.option===2)
+            {
+                var networkAP1= new vis.Network(ap1,dataAP1,options);
+                var networkAP2= new vis.Network(ap2,dataAP2,options);
+            }
+            if(this.opcion===3)
+            {
+                var networkUnion= new vis.Network(apUnidos,dataAPUnidos,options);
+            }
+            if(this.opcion===2)
+            {
+                var networkConcatenacion= new vis.Network(apConcatenados,dataAPConcatenados,options);
+            }
+        },
+        //crear revisar transición
     }
 }
 </script>
+
+
