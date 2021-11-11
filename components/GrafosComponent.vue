@@ -1769,7 +1769,16 @@ export default {
             this.transicionesAutomataAFD=transAFDCopia;
             this.drawAutomata();
         },
-        //verificar Termino
+        verificarTermino(transiciones){
+            for(let a=0; a<transiciones.length; a++){
+                if(transiciones[a].from=='inicio' && transiciones[a].to=='Final'){
+                }else{
+                    return false;
+                }
+            }
+            return true;
+        },
+        //Crear Eliminar estados
     }
 }
 </script>
