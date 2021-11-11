@@ -1778,7 +1778,32 @@ export default {
             }
             return true;
         },
-        //Crear Eliminar estados
+        eliminarEstados(estados){
+            for(let c=0; c<estados.length; c++){
+                if(estados[c].id != 'inicio' && estados[c].id != 'Final'){
+                    estados.splice(c,1);
+                    c--
+                }
+            }
+        },
+        buscarToEnArray(array, efto){
+            let indices=[];
+            for(let t=0;array.length;t++){
+                if(array[t].to==efto){
+                    indices.push(t)
+                }
+            }
+            return indices;
+        },
+        existeenarray(label, array ){
+            for(let bus=0; bus<array.length;bus++){
+                if(array[bus].label==label){
+                    return true;
+                }
+            }
+            return false;
+        },
+        //salen finales
     }
 }
 </script>
