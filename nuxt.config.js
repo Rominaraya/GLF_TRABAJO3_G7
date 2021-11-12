@@ -23,6 +23,10 @@ export default {
   css: [
   ],
 
+  router: {
+    base: '/grupo7/' //editar esto en caso de querer colocar en otra carpeta
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     {
